@@ -2,7 +2,7 @@ from typing import Tuple
 import pandas as pd
 import joblib
 from sklearn.metrics import recall_score, f1_score, precision_score
-from sklearn.preprocessing import OneHotEncoder, LabelEncoder, OrdinalEncoder
+from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
 
 from .data_processing import split_to_x_y
 
@@ -28,7 +28,7 @@ def get_predict(df: pd.DataFrame, filename: str = 'RandomForest') -> Tuple[float
     return recall, f1, precision
 
 
-def feature_create(path: str) -> pd.DataFrame:
+def feature_construct(path: str) -> pd.DataFrame:
     df = pd.read_csv(path, index_col=0)
 
     # Преобразование месяцев
