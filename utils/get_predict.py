@@ -1,16 +1,14 @@
+from typing import Tuple
 import pandas as pd
 import joblib
 from sklearn.metrics import recall_score, f1_score, precision_score
-
-from utils.feature_selection import feature_selection
 from .data_processing import split_to_x_y
 
 
-def get_predict(test_data):
+def get_predict(test_data: pd.DataFrame) -> Tuple[float, float, float]:
     # Загрузка модели из файла
     filename = 'model.pkl'
     loaded_model = joblib.load(filename)
-
 
     # Подготовка к получению предтика
     X, y = split_to_x_y(test_data, 'y')

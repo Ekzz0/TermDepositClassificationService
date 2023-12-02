@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.utils import shuffle
 
 
-def balance_the_dataset(data, y_name):
+def balance_the_dataset(data: pd.DataFrame, y_name: str) -> pd.DataFrame:
     R = np.random.RandomState(42)
 
     # Resampling датасета
@@ -19,18 +19,8 @@ def balance_the_dataset(data, y_name):
     data.index = range(len(data))
     return data
 
-def best_hyperparams_transform(param):
-    for key, value in param.items():
-        if value % 1 == 0:
-            param[key] = int(value)
-    return param
 
-
-def numeric_transform(df, col):
-    df[f"{col}"] = pd.to_numeric(df[f"{col}"])
-
-
-def split_to_x_y(df, y_name):
+def split_to_x_y(df: pd.DataFrame, y_name: str) -> tuple[pd.DataFrame, pd.Series]:
     X = df.iloc[:, df.columns != y_name]
     y = df.iloc[:, df.columns == y_name]
 

@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 
-def plot_feature_importance(importance, names, model_type):
+def plot_feature_importance(importance: list[float], names: list[str], model_type: str):
     # Create arrays from feature importance and feature names
     feature_importance = np.array(importance)
     feature_names = np.array(names)
@@ -26,7 +26,7 @@ def plot_feature_importance(importance, names, model_type):
     plt.ylabel('FEATURE NAMES')
 
 
-def plot_metrics_hist(models_names, metrics):
+def plot_metrics_hist(models_names: list[str], metrics: list[float]):
     fig, ax = plt.subplots(figsize=(5, 5), nrows=1, ncols=1)
     col_map = plt.get_cmap('Paired')
     ax.bar(models_names, metrics, color=col_map.colors, edgecolor='k')
