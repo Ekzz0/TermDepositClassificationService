@@ -18,7 +18,7 @@ def get_predict(df: pd.DataFrame, path: str) -> Tuple[float, float, float]:
     predictions_proba = loaded_model.predict_proba(X.values)
 
     result = pd.DataFrame(predictions_proba, index=df.index)
-    result.to_csv('result_example.csv', index_label='id')
+    result.to_csv('result.csv', index_label='id')
 
     # Метрики
     recall = recall_score(y_true=y, y_pred=predictions, average='weighted')
