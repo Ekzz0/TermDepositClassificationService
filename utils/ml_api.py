@@ -7,9 +7,9 @@ from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
 from .data_processing import split_to_x_y
 
 
-def get_predict(df: pd.DataFrame, filename: str = 'RandomForest') -> Tuple[float, float, float]:
+def get_predict(df: pd.DataFrame, path: str) -> Tuple[float, float, float]:
     # Загрузка модели из файла
-    loaded_model = joblib.load(filename + '.pkl')
+    loaded_model = joblib.load(path)
 
     # Подготовка к получению предтика
     X, y = split_to_x_y(df, 'y')
