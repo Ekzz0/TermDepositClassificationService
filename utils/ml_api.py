@@ -1,4 +1,6 @@
 import pandas as pd
+
+import numpy as np
 import joblib
 from sklearn.metrics import recall_score, f1_score, precision_score
 from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
@@ -26,6 +28,8 @@ class Model:
         return ModelPrediction(precision=precision, recall=recall, f1=f1, predict=result)
 
     def fit(self, X: pd.DataFrame, y: pd.Series):
+        X = X if type(X) == np.ndarray else X.values
+        y = y if type(y) == np.ndarray else y.values.ravel()
         self.model.fit(X, y)
 
     def save_model(self):
