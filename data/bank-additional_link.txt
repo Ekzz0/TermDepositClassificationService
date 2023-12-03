@@ -1,2 +1,0 @@
-You can download dataset here:
-https://www.kaggle.com/datasets/alexkataev/bank-marketing-data-set
