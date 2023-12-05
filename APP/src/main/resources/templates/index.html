@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 99vw;
-            height: 99vh;
-            margin: 0;
-            border: 2px solid #333; /* Цвет и толщина рамки для всей страницы */
-        }
-
-        .work-in-progress {
-            font-size: 24px;
-            text-align: center;
-            border: 2px solid #333; /* Цвет и толщина рамки внутри страницы */
-            padding: 20px; /* Отступ внутри рамки */
-        }
-    </style>
-    <title>Work in Progress</title>
+    <title>Isotropic tenor</title>
 </head>
 <body>
     <div class="work-in-progress">
         <p>Work in Progress</p>
+        <form enctype="multipart/form-data" method="post">
+            <p><input type="file" name="fileCsv" accept=".csv">
+            <input type="submit" value="Отправить"></p>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>probability</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="person: ${persons}">
+                    <td th:text="${person.id}"></td>
+                    <td th:text="${person.probability}">%</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <div th:each="person: ${persons}">
+                <span th:text="${person.id}"></span>
+            </div>
+        </div>
     </div>
 </body>
 </html>
