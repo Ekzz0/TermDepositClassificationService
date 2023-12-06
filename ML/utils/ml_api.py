@@ -6,5 +6,5 @@ def load_model(path: str) -> LoadedModel:
     return LoadedModel(path)
 
 
-def load_feature_constructor(path: str) -> FeatureConstructor:
-    return FeatureConstructor(path)
+def load_feature_constructor() -> FeatureConstructor:
+    return FeatureConstructor()

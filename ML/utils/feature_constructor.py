@@ -3,10 +3,11 @@ import pandas as pd
 
 
 class FeatureConstructor:
-    def __init__(self, path):
-        self.df = pd.read_csv(path, index_col=0)
+    def __init__(self):
+        self.df: pd.DataFrame = pd.DataFrame()
 
-    def feature_construct(self) -> pd.DataFrame:
+    def feature_construct(self, path) -> pd.DataFrame:
+        self.df = pd.read_csv(path, index_col=0)
         # Преобразование месяцев
         ord_e = OrdinalEncoder(
             categories=[["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]])
@@ -56,7 +57,7 @@ class FeatureConstructor:
                              bins=cut_bins,
                              labels=cut_labels)
         self.df['pdays'] = le.fit_transform(self.df['pdays'])
-
+        self.df.to_csv('./data/test_ready.csv')
         return self.df
 
 

@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 
-
 @dataclass
 class Person:
     probability: float
@@ -14,13 +13,19 @@ class PersonsList:
 
 @dataclass
 class ModelPrediction:
+    result: PersonsList
+
+
+@dataclass
+class Score:
     precision: float
     recall: float
     f1: float
-    result: PersonsList
 
 
 @dataclass
 class FeatureImportance:
     features: list[str]
     importance: list[float]
+
+

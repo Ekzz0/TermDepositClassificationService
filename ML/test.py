@@ -4,8 +4,8 @@ import utils as ut
 if __name__ == '__main__':
     # Генерация признаков
     path = "./data/test.csv"
-    FeatureConstruct = ut.load_feature_constructor(path)
-    test_data = FeatureConstruct.feature_construct()
+    FeatureConstruct = ut.load_feature_constructor()
+    test_data = FeatureConstruct.feature_construct(path)
 
     # Загрузка модели
     path = "./models/RandomForest.pkl"
@@ -14,11 +14,14 @@ if __name__ == '__main__':
     # # Обучение модели на каких-то новых данных:
     # path = "./data/train.csv"
     # train_data = pd.read_csv(path, index_col=0)
-    # model.fit(*ut.split_to_x_y(train_data, 'y'))
+    # X, y = ut.split_to_x_y(train_data, 'y')
+    # score = model.fit(X, y)
+    # print(score)
     # model.save_model()
 
     # Получение предикта
-    clf_report = model.predict(*ut.split_to_x_y(test_data, 'y'))
+    X_pred, y_pred = ut.split_to_x_y(test_data, 'y')
+    clf_report = model.predict(X_pred)
     result = clf_report.result
     # clf_report.predict.to_csv('../result.csv', index_label='id')
 

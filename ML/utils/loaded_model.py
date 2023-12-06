@@ -1,8 +1,8 @@
 import joblib
 from sklearn.metrics import recall_score, f1_score, precision_score
-
+from sklearn.model_selection import train_test_split
 from .data_processing import get_feature_indexes, get_importance
-from .data_structures import ModelPrediction, Person, PersonsList, FeatureImportance
+from .data_structures import ModelPrediction, Person, PersonsList, FeatureImportance, Score
 import pandas as pd
 import numpy as np
 
@@ -18,34 +18,40 @@ class LoadedModel:
         self.model = joblib.load(path)
         self.path = path
 
-    def predict(self, X: pd.DataFrame, y: pd.Series) -> ModelPrediction:
-        predictions = self.model.predict(X.values)
-        predictions_proba = self.model.predict_proba(X.values)
+    def predict(self, X: pd.DataFrame) -> ModelPrediction:
+        pred = pd.DataFrame(self.model.predict_proba(X.values),
+                            index=X.index,
+                            columns=['Не оформил', 'Оформил'])
 
-        pred = pd.DataFrame(predictions_proba, index=y.index, columns=['Не оформил', 'Оформил'])
         pred.index.rename('id', inplace=True)
-
-        # Метрики
-        recall = recall_score(y_true=y, y_pred=predictions, average='weighted')
-        f1 = f1_score(y_true=y, y_pred=predictions, average='weighted')
-        precision = precision_score(y_true=y, y_pred=predictions, average='weighted')
 
         persons = [Person(probability=probability, ID=ID) for ID, probability in
                    zip(pred.index, pred['Оформил'].values)]
 
         result = PersonsList(persons=persons)
 
-        return ModelPrediction(precision=precision, recall=recall, f1=f1, result=result)
+        return ModelPrediction(result=result)
 
-    def fit(self, X: pd.DataFrame, y: pd.Series):
-        X = X if type(X) == np.ndarray else X.values
-        y = y if type(y) == np.ndarray else y.values.ravel()
-        self.model.fit(X, y)
+    def fit(self, X: pd.DataFrame, y: pd.Series) -> Score:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+        X_train = X_train if type(X_train) == np.ndarray else X_train.values
+        y_train = y_train if type(y_train) == np.ndarray else y_train.values.ravel()
+        self.model.fit(X_train, y_train)
+
+        predictions = self.model.predict(X_test.values)
+
+        # Метрики
+        recall = recall_score(y_true=y_test.values.ravel(), y_pred=predictions, average='weighted')
+        f1 = f1_score(y_true=y_test.values.ravel(), y_pred=predictions, average='weighted')
+        precision = precision_score(y_true=y_test.values.ravel(), y_pred=predictions, average='weighted')
+
+        return Score(recall=recall, f1=f1, precision=precision)
 
     def save_model(self):
         joblib.dump(self.model, self.path)
 
-    def get_feature_importance(self, df: pd.DataFrame, ID: int):
+    def get_feature_importance(self, df: pd.DataFrame, ID: int) -> FeatureImportance:
         try:
             fi = self.model.feature_importances_
         except Exception as e:
