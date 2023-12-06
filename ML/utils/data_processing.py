@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.utils import shuffle
+from sklearn.preprocessing import MinMaxScaler
 
 
 def balance_the_dataset(data: pd.DataFrame, y_name: str) -> pd.DataFrame:
@@ -25,5 +26,24 @@ def split_to_x_y(df: pd.DataFrame, y_name: str) -> tuple[pd.DataFrame, pd.Series
     y = df.iloc[:, df.columns == y_name]
 
     return X, y
+
+
+def get_feature_indexes(cols, features):
+    indexes = []
+    for feature in features:
+        ind = list(cols).index(feature)
+        indexes.append(ind)
+    return indexes
+
+
+def get_importance(df, feature_importance_, ID, feature_ind):
+    values = df.loc[ID].values[feature_ind]
+    importance = feature_importance_[feature_ind]
+    res = pd.DataFrame(values * importance, columns=['importance'])
+    res.index = df.loc[ID].iloc[feature_ind].index
+    scaler = MinMaxScaler()
+    res['importance'] = scaler.fit_transform(res['importance'].values.reshape(-1, 1))
+
+    return res.sort_values(by=['importance'])
 
 
