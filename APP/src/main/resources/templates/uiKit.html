@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css" th:href="@{css/index.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<!--    <script href="/static/js/diagram.js" th:href="@{js/diagram.js}"></script>-->
     <title>Title</title>
 </head>
 <body>
+    <h1>diagram</h1>
+    <div class="diagram">
+        <canvas id="myChart"></canvas>
+    </div>
 
+    <script src="/static/js/diagram.js" th:src="@{js/diagram.js}"></script>
 </body>
+
 </html>
