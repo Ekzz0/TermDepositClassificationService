@@ -9,4 +9,8 @@ public class DefaultController {
     public String index() {
         return "index";
     }
+    @GetMapping("/uiKit")
+    public String uiKit() {
+        return "uiKit";
+    }
 }
