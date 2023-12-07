@@ -40,7 +40,7 @@ def feature_constructor(calc_type='simple'):
         # Узнаем, сколько лежит людей в промежутках: (17-30), (30-50), (50-100) (young, adult, old)
         cut_labels = ['young', 'adult', 'old']
         cut_bins = [16, 30, 50, 200]
-
+        df['age'] = df['age'].astype('int')
         df['age'] = pd.cut(df['age'],
                            bins=cut_bins,
                            labels=cut_labels)
@@ -50,6 +50,7 @@ def feature_constructor(calc_type='simple'):
         cut_labels = ['old_client', 'new_client']
         cut_bins = [-1, 998, 1000]
 
+        df['pdays'] = df['pdays'].astype('int')
         df['pdays'] = pd.cut(df['pdays'],
                              bins=cut_bins,
                              labels=cut_labels)
