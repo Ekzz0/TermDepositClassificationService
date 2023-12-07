@@ -15,7 +15,7 @@ function handleCSV() {
       const json = Papa.parse(csv, { header: true })
       console.log(json)
       alert('Ваш файл загружен')
-      
+
       postRequest(json)
     }
 
@@ -27,6 +27,7 @@ function handleCSV() {
 }
 
 function postRequest(json){
+    console.log(json)
     fetch('http://localhost:8081/' ,{
         method: 'POST',
         body: json,
