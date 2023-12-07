@@ -54,7 +54,6 @@ def feature_constructor(calc_type='simple'):
                              bins=cut_bins,
                              labels=cut_labels)
         df['pdays'] = le.fit_transform(df['pdays'])
-        df.to_csv('./data/test_ready.csv')
         return df
 
     def multi_feature_construct(df: pd.DataFrame, chunk_size: int = 1000) -> pd.DataFrame:
