@@ -25,12 +25,6 @@ class MLModel:
                             columns=['Не оформил', 'Оформил'])
 
         pred.index.rename('id', inplace=True)
-
-        # persons = [Person(probability=probability, ID=ID) for ID, probability in
-        #            zip(pred.index, pred['Оформил'].values)]
-        #
-        # result = PersonsList(persons=persons)
-
         return pred['Оформил']
 
     def fit(self, X: pd.DataFrame, y: pd.Series) -> Score:
@@ -69,10 +63,11 @@ class MLModel:
                 bin_f_imp = get_importance(df, fi, ID, bin_f_ind)
                 count_f_imp = get_importance(df, fi, ID, count_f_ind)
                 num_f_imp = get_importance(df, fi, ID, num_f_ind)
+            except KeyError:
+                print('Пользователь не найден в списке')
             except Exception as e:
                 print(e)
                 print(traceback.format_exc())
-
             else:
                 # Индекс конца датасета
                 last_ind_b = len(bin_f_imp)
