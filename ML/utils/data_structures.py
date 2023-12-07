@@ -1,23 +1,24 @@
 from dataclasses import dataclass
-
-@dataclass
-class Person:
-    probability: float
-    ID: int
+from pydantic import BaseModel
 
 
-@dataclass
-class PersonsList:
-    persons: list[Person]
+# @dataclass
+# class Person:
+#     probability: float
+#     ID: int
+#
+#
+# @dataclass
+# class PersonsList:
+#     persons: list[Person]
 
 
-@dataclass
-class ModelPrediction:
-    result: PersonsList
+# @dataclass
+# class ModelPrediction:
+#     result: PersonsList
 
-
-@dataclass
-class Score:
+# Класс для response после fit
+class Score(BaseModel):
     precision: float
     recall: float
     f1: float

@@ -9,5 +9,5 @@
 1. Создайте виртуальную среду ```python3.11 -m venv env```
 2. Установите необходимые модули ```pip install -r requirements.txt```
 3. Обновите все зависимости из setup.py ```pip install -U -e .```
-4. Запустите сервер ```uvicorn app.app:app --host 0.0.0.0 --port 8889```
+4. Запустите сервер из текущей папки (ML) ```uvicorn app.app:app --host 0.0.0.0 --port 8889```
 
