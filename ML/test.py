@@ -27,23 +27,23 @@ if __name__ == '__main__':
     response = convert_dataframe_to_json(clf_report)
     print(response)
 
-    # Получим топ фич, которые повлияли на ответ
-    ID = 37202
-    print(model.get_feature_importance(X_test, ID))
-
-    # Обучение модели на каких-то новых данных:
-    path = "./data/train.csv"
-    train_data = pd.read_csv(path, index_col=0)
-    X, y = ut.split_to_x_y(train_data, 'y')
-    # Отсюда имитируем ситуацию: Получили json файл
-    X = convert_dataframe_to_json(X)
-    y = convert_dataframe_to_json(y)
-
-    # 1) Нужно конвертировать json в pd.DataFrame
-    X = convert_json_to_dataframe(X)
-    y = convert_json_to_dataframe(y)
-    # 2) Обучаем модель
-    score = model.fit(X, y)
-    print(score)
+    # # Получим топ фич, которые повлияли на ответ
+    # ID = 37202
+    # print(model.get_feature_importance(X_test, ID))
+    #
+    # # Обучение модели на каких-то новых данных:
+    # path = "./data/train.csv"
+    # train_data = pd.read_csv(path, index_col=0)
+    # X, y = ut.split_to_x_y(train_data, 'y')
+    # # Отсюда имитируем ситуацию: Получили json файл
+    # X = convert_dataframe_to_json(X)
+    # y = convert_dataframe_to_json(y)
+    #
+    # # 1) Нужно конвертировать json в pd.DataFrame
+    # X = convert_json_to_dataframe(X)
+    # y = convert_json_to_dataframe(y)
+    # # 2) Обучаем модель
+    # score = model.fit(X, y)
+    # print(score)
 
 

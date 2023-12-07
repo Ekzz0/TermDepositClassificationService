@@ -32,7 +32,7 @@ def predict_prob(X) -> JSONResponse:
     X_test = feature_construct(X)
     pred = model.predict(X_test)
     response = convert_dataframe_to_json(pred)
-    return response
+    return response  # {id: str: probability: float}
 
 
 # GET запрос для конструирования признаков
