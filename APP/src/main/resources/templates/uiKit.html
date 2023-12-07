@@ -12,37 +12,43 @@
     <title>Title</title>
 </head>
 <body>
+    <h1>Логотип</h1>
+    <div class="logo">
+        <img class="logo__img" src="../static/images/atom.svg" th:src="@{images/atom.svg}" alt="atom">
+        <h2 class="logo__title">Isotropic<span class="logo__title-accent">Tensor</span></h2>
+    </div>
     <h1>diagram</h1>
     <div class="diagram">
         <canvas id="myChart"></canvas>
     </div>
     <h1>table</h1>
-    <table id="table">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>probability</th>
+    <table id="table" class="table">
+        <thead class="table__head">
+            <tr class="table__head-container">
+                <th class="table__head-id">id</th>
+                <th class="table__head-prob">probability</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table__body">
             <tr>
-                <td>2</td>
-                <td>10</td>
+                <td class="table__body-id">3</td>
+                <td class="table__body-prob">15</td>
             </tr>
             <tr>
-                <td>5</td>
-                <td>15</td>
+                <td class="table__body-id">6</td>
+                <td class="table__body-prob">40</td>
             </tr>
             <tr>
-                <td>8</td>
-                <td>20</td>
+                <td class="table__body-id">7</td>
+                <td class="table__body-prob">20</td>
             </tr>
             <tr>
-                <td>10</td>
-                <td>30</td>
+                <td class="table__body-id">2</td>
+                <td class="table__body-prob">1</td>
             </tr>
         </tbody>
     </table>
+    <h1>Кнопка на обработку данных</h1>
     <input type="file" name="fileCsv" accept=".csv" id="csvFileInput">
     <button id="processCsv">Обработать</button>
 
