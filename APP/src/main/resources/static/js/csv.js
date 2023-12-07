@@ -12,7 +12,7 @@ function handleCSV() {
     const reader = new FileReader();
     reader.onload = function(file) {
       const csv = file.target.result;
-      const json = Papa.parse(csv, { header: true })
+      const json = Papa.parse(csv, { header: true }).data
       console.log(json)
       alert('Ваш файл загружен')
       
@@ -29,7 +29,8 @@ function handleCSV() {
 function postRequest(json){
     fetch('http://localhost:8081/' ,{
         method: 'POST',
-        body: json,
+        body: JSON.stringify(json),
+        headers: {"Content-Type": 'application/json'}
     })
     .then(response => {
         if(response.ok){
