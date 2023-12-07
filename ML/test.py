@@ -1,8 +1,7 @@
 import pandas as pd
 import utils as ut
-
-
 from utils.json_scripts import convert_dataframe_to_json, convert_json_to_dataframe
+
 
 if __name__ == '__main__':
     path = "./data/test.csv"
