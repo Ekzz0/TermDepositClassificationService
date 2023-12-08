@@ -22,10 +22,10 @@ class MLModel:
     def predict(self, X: pd.DataFrame) -> pd.DataFrame:
         pred = pd.DataFrame(self.model.predict_proba(X.values),
                             index=X.index,
-                            columns=['Не оформил', 'Оформил'])
+                            columns=['probability_false', 'probability'])
 
-        pred.index.rename('id', inplace=True)
-        return pred['Оформил']
+        pred['id'] = pred.index
+        return pred[['id', 'probability']]
 
     def fit(self, X: pd.DataFrame, y: pd.Series) -> Score:
         # Разделение на train и test выборки
@@ -47,6 +47,9 @@ class MLModel:
 
     def save_model(self, path: str):
         joblib.dump(self.model, path)
+
+    def check_df_columns(self, df: pd.DataFrame) -> bool:
+        return sorted(list(df.columns)) == sorted(self.bin_f + self.num_f + self.count_f)
 
     def get_feature_importance(self, df: pd.DataFrame, ID: int) -> FeatureImportance:
         try:
@@ -85,3 +88,5 @@ class MLModel:
                     to_num.values.ravel())
 
                 return FeatureImportance(features=feature_names, importance=feature_importance)
+
+

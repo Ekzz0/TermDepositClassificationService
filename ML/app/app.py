@@ -1,4 +1,6 @@
-from fastapi import FastAPI, UploadFile, Body
+import json
+
+from fastapi import FastAPI, Body
 from fastapi.responses import JSONResponse
 from utils.data_structures import Score
 from utils.feature_constructor import feature_constructor
@@ -6,7 +8,6 @@ from utils.loaded_model import MLModel
 from utils.ml_api import load_model, load_feature_constructor
 from utils.json_scripts import convert_dataframe_to_json, convert_json_to_dataframe
 from typing import Any
-import json
 
 model: MLModel
 feature_construct: feature_constructor
@@ -31,11 +32,16 @@ def index() -> dict[str, str]:
 @app.post("/predict")
 def predict_prob(request: Any = Body(None)) -> JSONResponse:
     X = convert_json_to_dataframe(request)
-    X_test = feature_construct(X)
-    X_test = X_test.drop(columns = ['id', 'y'])
-    pred = model.predict(X_test)
-    response = convert_dataframe_to_json(pred)
-    return response  # {id: str: probability: float}
+    # Проверка на то, имеет ли полученный датасет все нужные столбцы для обработки
+    if model.check_df_columns(X):
+        # Конструирование признаков
+        X_test = feature_construct(X)
+        # Предикт
+        pred = model.predict(X_test)
+        response = convert_dataframe_to_json(pred)
+        return response  # Если нужна строка с json форматом, то напиши: return json.dumps(response)
+    else:
+        return {'text': 'Недостаточно признаков в датасете'}
 
 
 # GET запрос для конструирования признаков
